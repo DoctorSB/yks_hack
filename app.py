@@ -16,10 +16,17 @@ def generate(text, **kwargs):
 
 @app.route('/generate', methods=['POST'])
 def generate_text():
-    data = request.json
-    text = data.get('text', '')
-    response_text = generate(text)
-    return jsonify({'response': response_text})
+    try:
+        data = request.json
+        text = data.get('text', '')
+        
+        if not text or not isinstance(text, str):
+            return jsonify({'error': 'Invalid input'}), 400
+
+        response_text = generate(text)
+        return jsonify({'response': response_text})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
