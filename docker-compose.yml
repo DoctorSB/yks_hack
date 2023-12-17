@@ -1,0 +1,22 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+      - model
+    environment:
+      - REDIS_HOST=redis
+  vue:
+    build: ./vue
+    ports:
+      - "8080:8080"
+  model:
+    build: ./model
+    ports:
+      - "5000:5000"
+  redis:
+    image: redis:latest
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
