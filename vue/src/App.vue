@@ -23,7 +23,7 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { ref, nextTick } from 'vue';
 import axios from 'axios';
@@ -44,7 +44,7 @@ export default {
 
             try {
                 // Измените URL в соответствии с адресом вашего сервера
-                const serverResponse = await axios.post('http://localhost:5000/generate', { text: question.value });
+                const serverResponse = await axios.get(`http://localhost:3000/?text=${question.value}`);
                 response.value = serverResponse.data.response;
                 chatHistory.value.push({ text: question.value, isUser: true });
                 chatHistory.value.push({ text: response.value, isUser: false });

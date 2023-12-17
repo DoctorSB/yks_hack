@@ -19,7 +19,7 @@ def generate_text():
     try:
         data = request.json
         text = data.get('text', '')
-        
+
         if not text or not isinstance(text, str):
             return jsonify({'error': 'Invalid input'}), 400
 
