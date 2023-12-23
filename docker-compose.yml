@@ -9,6 +9,8 @@ services:
       - model
     environment:
       - REDIS_HOST=redis
+    networks:
+      - model-network
   vue:
     build: ./vue
     ports:
@@ -17,6 +19,11 @@ services:
     build: ./model
     ports:
       - "5000:5000"
+    networks:
+      - model-network
   redis:
     image: redis:latest
     command: ["redis-server", "--bind", "redis", "--port", "6379"]
+networks:
+  model-network:
+    driver: bridge
